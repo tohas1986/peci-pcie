@@ -32,13 +32,11 @@
 # data within them will be kept sorted.
 
 owners:
-- jason.m.bills@linux.intel.com
+- kapitanov@rikor.com
 
 reviewers:
 
 matchers:
 
 openbmc:
-- name: Jason Bills
-  email: jason.m.bills@linux.intel.com
-  discord: jmbills
+
