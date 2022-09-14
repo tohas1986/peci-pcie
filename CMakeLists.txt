@@ -15,7 +15,8 @@ add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
 add_definitions(-DBOOST_ASIO_DISABLE_THREADS)
 
-set(SRC_FILES 
+set(SRC_FILES
+        src/peci.c 
 	src/peci_pcie.cpp
 )
 
