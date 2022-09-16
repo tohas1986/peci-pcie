@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-project(peci-pcie CXX)
+project(peci-pcie)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
@@ -16,7 +16,7 @@ add_definitions(-DBOOST_NO_TYPEID)
 add_definitions(-DBOOST_ASIO_DISABLE_THREADS)
 
 set(SRC_FILES
-        src/peci.c 
+    src/peci.c 
 	src/peci_pcie.cpp
 )
 
@@ -40,6 +40,13 @@ include_directories(${LOGGING_INCLUDE_DIRS})
 link_directories(${LOGGING_LIBRARY_DIRS})
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
+
+target_link_libraries(${PROJECT_NAME} pthread)
+target_link_libraries(${PROJECT_NAME} ${SDBUSPLUSPLUS_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${DBUSINTERFACE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} phosphor_logging)
+
 
 set(SERVICE_FILES
     ${PROJECT_SOURCE_DIR}/service_files/xyz.openbmc_project.PCIe.service

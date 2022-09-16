@@ -15,6 +15,7 @@
 */
 
 #include "peci_pcie.hpp"
+#include <peci.h>
 
 #include "pciDeviceClass.hpp"
 #include "pciVendors.hpp"
@@ -845,8 +846,7 @@ static void waitForOSStandbyDelay(boost::asio::io_service& io,
             scanPCIeDevice(io, objServer, cpuInfo, 0, 0, 0);
         });
 }
-
-static void monitorOSStandby(boost::asio::io_service& io,
+/*static void monitorOSStandby(boost::asio::io_service& io,
                              std::shared_ptr<sdbusplus::asio::connection> conn,
                              sdbusplus::asio::object_server& objServer,
                              boost::asio::steady_timer& osStandbyTimer,
@@ -933,7 +933,7 @@ static void monitorOSStandby(boost::asio::io_service& io,
         "/xyz/openbmc_project/state/os", "org.freedesktop.DBus.Properties",
         "Get", "xyz.openbmc_project.State.OperatingSystem.Status",
         "OperatingSystemState");
-}
+}*/
 
 int main(int argc, char* argv[])
 {
@@ -950,10 +950,10 @@ int main(int argc, char* argv[])
     // CPU map
     std::vector<CPUInfo> cpuInfo;
 
-#ifdef WAIT_FOR_OS_STANDBY
+/*#ifdef WAIT_FOR_OS_STANDBY
     boost::asio::steady_timer osStandbyTimer(io);
     monitorOSStandby(io, conn, server, osStandbyTimer, cpuInfo);
-#else
+#else*/
     // Start the PECI check loop
     boost::asio::steady_timer peciWaitTimer(
         io, std::chrono::seconds(peci_pcie::peciCheckInterval));
@@ -971,7 +971,7 @@ int main(int argc, char* argv[])
         }
         peciAvailableCheck(peciWaitTimer, io, server, cpuInfo);
     });
-#endif
+//#endif
 
     io.run();
 
